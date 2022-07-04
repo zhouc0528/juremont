@@ -140,6 +140,18 @@
             $storagecharge = 4.90;
             $transportcharge = 900.00;
         break;
+        case "20 Frozen":
+            $devanning = 450.00;
+            $pallets = 20;
+            $storagecharge = 5.00;
+            $transportcharge = 600;
+        break;
+        case "40 Frozen":
+            $devanning = 700.00;
+            $pallets = 40;
+            $storagecharge = 5.00;
+            $transportcharge = 1200;
+        break;
     };
     echo "devanning:".$devanning;
     echo "<tr>"."<td>";
