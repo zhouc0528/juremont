@@ -1,0 +1,10 @@
+#calculate
+{
+    font-weight: normal;
+}
+
+#calculate:hover
+{
+    font-weight: bold;
+    transform: scale(1.2);
+}
