@@ -12,9 +12,10 @@ require_once('config.php');
   <script type="text/javascript" src="/javascript/productcascading.js"></script>  
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
   <link rel="stylesheet" href="/css/stylesheet.css">
+  <img src="/picture/logo.jpg">
 </head>
 
-<body>
+<body style="background-color:rgb(198, 115, 104);">
   <form action="result.php" method="post">
 
     Supplier:<br>
