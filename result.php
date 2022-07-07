@@ -24,6 +24,21 @@
     $itemgroup_row = $itemgroup_result->fetch_assoc();
     echo "<tr>" . "<td>" . "Item Group: " . "<td>" . $itemgroup_row["ItmsGrpNam"];
 
+    #container size and quantity per PO is pre-defined in the itemgroup table
+    $containersize_sql = "SELECT ContainerSize FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
+    $containersize_result = $conn->query($containersize_sql);
+    $containersize_row = $containersize_result->fetch_assoc();
+    $containersize = $containersize_row["ContainerSize"];
+
+    $weightpercontainer_sql = "SELECT WeightperContainer FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
+    $weightpercontainer_result = $conn->query($weightpercontainer_sql);
+    $weightpercontainer_row = $weightpercontainer_result->fetch_assoc();
+    $weightpercontainer = $weightpercontainer_row["WeightperContainer"];
+
+    /*     echo "<tr>" . "<td>" . "Weight per Container: " . "<td>" .$weightpercontainer; */
+
+    /*     echo "<tr>" . "<td>" . "Container Size: " . "<td>" .$containersize; */
+
     $product = $_POST['Product'];
     $product_sql = "SELECT ItemDescription FROM Product WHERE ItemNo ='$product'";
     $product_result = $conn->query($product_sql);
@@ -36,7 +51,7 @@
 
     echo "<tr>" . "<td>" . "Exchange Rate: " . "<td>" . $_POST['FX_Rate'];
 
-    echo "<tr>" . "<td>" . "Total Contract Quantity: " . "<td>" . $_POST['Quantity'] . " MT";
+    echo "<tr>" . "<td>" . "Total Contract Quantity: " . "<td>" . $_POST['Quantity'] . " MT"; //The quantity is only for display, which is the quantity of whole contract
 
     echo "<tr>" . "<td>" . "Duty: " . "<td>" . $_POST['Duty'] . " %";
 
@@ -64,8 +79,6 @@
     echo "<tr>" . "<td>" . "Supplier Term: " . "<td>" . $_POST['Supplier_Term'];
 
     echo "<tr>" . "<td>" . "Departure Port: " . "<td>" . $_POST['Departure_Port'];
-
-    echo "<tr>" . "<td>" . "Container Size: " . "<td>" . $_POST['Container_Size'];
 
     $customer = $_POST['Customer'];
     $customer_sql = "SELECT BPName FROM BP WHERE BPCode ='$customer'";
@@ -99,7 +112,7 @@
 
     #calculate sea freight based on container type and departure port.
     $dport = $_POST['Departure_Port'];
-    $containertype = $_POST['Container_Size'] . " " . $ctype;
+    $containertype = $containersize . " " . $ctype;
     echo $containertype;
     echo "<tr>" . "<td>";
     $seafreight_sql = "SELECT Rate FROM SeaFreight WHERE PortofLoading ='$dport' and ContainerType ='$containertype'";
@@ -114,6 +127,8 @@
             $seafreightrate = $seafreight_row["Rate"] / 0.7;
     };
 
+    echo "<tr>" . "<td>" . "Sea Freight: " . "<td>" . $seafreightrate;
+    echo "<tr>" . "<td>";
 
     /* $seafreightdecimal = number_format($seafreightrate,2);
     echo "seafreight: ".$seafreightdecimal;
@@ -129,7 +144,7 @@
     #ambient storage = 3.25, temp controlled storage = 4.90 per pallet
     /*currently only using flat full truck load rate for metro delivery*/
 
-    $storagetype = $_POST['Container_Size'] . " " . $_POST['Handling_Type'];
+    $storagetype = $containersize . " " . $_POST['Handling_Type'];
     echo $storagetype;
     echo "<tr>" . "<td>";
 
@@ -192,12 +207,12 @@
 
             switch ($_POST['Supplier_Term']) {
                 case "FOB":
-                    $totalcharge = ($_POST['Product_Price'] * $_POST['Quantity'] * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
+                    $totalcharge = ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
                         $seafreightrate + $landedcost + $whschargeperorder + ($whschargeperpallet * $pallets) +
                         $devanning + ($storagecharge * $_POST['Storage'] * $pallets) + ($transportcharge * (1 + $fuellevy));
                     break;
                 case "CNF/CIF":
-                    $totalcharge = ($_POST['Product_Price'] * $_POST['Quantity'] * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
+                    $totalcharge = ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
                         $landedcost + $whschargeperorder + ($whschargeperpallet * $pallets) +
                         $devanning + ($storagecharge * $_POST['Storage'] * $pallets) + ($transportcharge * (1 + $fuellevy));
                     break;
@@ -207,10 +222,10 @@
         case "Direct FCL":
             switch ($_POST['Supplier_Term']) {
                 case "FOB":
-                    $totalcharge = ($_POST['Product_Price'] * $_POST['Quantity'] * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $seafreightrate + $landedcost;
+                    $totalcharge = ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $seafreightrate + $landedcost;
                     break;
                 case "CNF/CIF":
-                    $totalcharge = ($_POST['Product_Price'] * $_POST['Quantity'] * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $landedcost;
+                    $totalcharge = ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $landedcost;
                     break;
             };
             break;
@@ -224,14 +239,14 @@
     echo "<tr>" . "<td>" . "--------------------------------------" . "<td>" . "--------------------------------------------------";
     echo "<tr>" . "<td>" . "Total Product Cost/ MT: ";
     echo "<td>";
-    $costofproduct = number_format(($totalcharge / $_POST['Quantity']), 0);
+    $costofproduct = number_format(($totalcharge / $weightpercontainer), 0);
     echo "AUD$ " . $costofproduct;
     echo "<tr>" . "<td>" . "Expected Margin/ MT: ";
     echo "<td>";
-    echo "AUD$ " . number_format(($totalcharge / $_POST['Quantity'] / (1 - $margin)) * $margin, 0);
+    echo "AUD$ " . number_format(($totalcharge / $weightpercontainer / (1 - $margin)) * $margin, 0);
     echo "<tr>" . "<td>" . "Recommended Sale Price/ MT: ";
     echo "<td>";
-    $saleprice = number_format(($totalcharge / $_POST['Quantity'] / (1 - $margin)), 0);
+    $saleprice = number_format(($totalcharge / $weightpercontainer / (1 - $margin)), 0);
     echo "AUD$ " . $saleprice;
     ?>
 </table>

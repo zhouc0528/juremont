@@ -9,13 +9,13 @@ require_once('config.php');
   <link rel="icon" href="/picture/icon.png">
   <title>Cost of Product Calculation</title>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="/javascript/productcascading.js"></script>  
+  <script type="text/javascript" src="/javascript/productcascading.js"></script>
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
   <link rel="stylesheet" href="/css/stylesheet.css">
-  <img src="/picture/logo.jpg">
+  <!-- <img src="/picture/logo.jpg"> -->
 </head>
 
-<body style="background-color:rgb(198, 115, 104);">
+<body style="background-color:rgb(166, 102, 4)">
   <form action="result.php" method="post">
 
     Supplier:<br>
@@ -63,11 +63,12 @@ require_once('config.php');
     </select><br><br>
 
     <div id="fxcontrol" style="display: none;">
-    Exchange Rate:<br> 
-    <input type="number" min="0.00" step="0.01" name="FX_Rate" value="1.00"><br><br></div>
+      Exchange Rate:<br>
+      <input type="number" min="0.00" step="0.01" name="FX_Rate" value="1.00"><br><br>
+    </div>
 
-    Total Contract Quantity:<br> 
-    <input type="number" min="0.00" step="any" name="Quantity"> (MT)<br><br> 
+    Total Contract Quantity:<br>
+    <input type="number" min="0.00" step="any" name="Quantity"> (MT)<br><br>
 
     Duty:<br>
     <select id="duty" name="Duty">
@@ -94,23 +95,24 @@ require_once('config.php');
 
     <!-- Hide departure port when supplier term is CNF/CIF -->
     <div id="seafreightcontrol">
-    Departure Port: <br>
-    (Please choose Others if the departure port is not in the list or you need to use a manual rate)<br> 
-    <select id="dport" name="Departure_Port">
-      <option value="">--- Select Departure Port ---</option>
-      <?php
-      $sql = "SELECT distinct PortofLoading, Country from SeaFreight";
-      $result = $conn->query($sql);
-      while ($row = $result->fetch_assoc()) {
-        echo "<option value='{$row["PortofLoading"]}'>{$row['PortofLoading']}.{$row['Country']}</option>";
-      }
-      ?>
-      <option value="Others">Others</option>
-    </select> <br><br>
+      Departure Port: <br>
+      (Please choose Others if the departure port is not in the list or you need to use a manual rate)<br>
+      <select id="dport" name="Departure_Port">
+        <option value="">--- Select Departure Port ---</option>
+        <?php
+        $sql = "SELECT distinct PortofLoading, Country from SeaFreight";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          echo "<option value='{$row["PortofLoading"]}'>{$row['PortofLoading']}.{$row['Country']}</option>";
+        }
+        ?>
+        <option value="Others">Others</option>
+      </select> <br><br>
 
-    Please Enter Sea Freight Quote If You Chose Others: <br>
-    <input type="number" value="0" min="0.00" step="any" name="spotrate">
-    <br><br></div>
+      Please Enter Sea Freight Quote If You Chose Others: <br>
+      <input type="number" value="0" min="0.00" step="any" name="spotrate">
+      <br><br>
+    </div>
 
     <!-- Container Type:<br>
     <select id="containertype" name="Container_Type">
@@ -120,10 +122,10 @@ require_once('config.php');
       <option value="40 RF">40' RF</option>
     </select><br><br> -->
 
-    Container Size: <br>
+    <!--     Container Size: <br>
     <input type="radio" name="Container_Size" value="20">20 ft &nbsp&nbsp&nbsp
     <input type="radio" name="Container_Size" value="40">40 ft
-    <br><br>
+    <br><br> -->
 
     Customer:<br>
     <select id="customer" name="Customer">
@@ -149,8 +151,8 @@ require_once('config.php');
 
     <!-- Hide storage period when the shipping from id direct FCL -->
     <div id="storagecontrol">
-    Product Storage Period: <br>
-    <input type="number" name="Storage" value = 0> (Weeks)<br>
+      Product Storage Period: <br>
+      <input type="number" name="Storage" value=0> (Weeks)<br>
     </div>
 
     <br>
@@ -163,4 +165,3 @@ require_once('config.php');
 </body>
 
 </html>
-
