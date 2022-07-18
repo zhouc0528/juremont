@@ -18,7 +18,7 @@ require_once('config.php');
 <body style="background-color:rgb(166, 102, 4)">
   <form action="result.php" method="post">
 
-  <label>Supplier:</label><br>
+  <label>Supplier:</label>
     <select id="supplier" name="Supplier">
       <option value="">--- Select Supplier ---</option>
       <?php
@@ -30,7 +30,7 @@ require_once('config.php');
       ?>
     </select> <br><br>
 
-    <label>Item Group:</label><br>
+    <label>Item Group:</label>
     <select id="itemgroup" name="Item_Group">
       <option value="">--- Select Item Group ---</option>
       <?php
@@ -42,7 +42,7 @@ require_once('config.php');
       ?>
     </select><br>
 
-    <label>Product:</label><br>
+    <label>Product:</label>
     <select id="product" name="Product">
       <option value="">--- Select Product ---</option>
     </select><br><br>
@@ -51,10 +51,10 @@ require_once('config.php');
     display product information once selected.
     -->
 
-    <label>Product Unit Purchase Price/ MT:</label><br>
+    <label>Product Unit Purchase Price/ MT:</label>
     <input type="number" min="0.00" step="any" name="Product_Price"><br><br>
 
-    <label>Purchase Currency:</label><br>
+    <label>Purchase Currency:</label>
     <select id="currency" name="Currency">
       <option value="AUD">AUD</option>
       <option value="USD">USD</option>
@@ -63,21 +63,21 @@ require_once('config.php');
     </select><br><br>
 
     <div id="fxcontrol" style="display: none;">
-    <label>Exchange Rate:</label><br>
+    <label>Exchange Rate:</label>
       <input type="number" min="0.00" step="0.01" name="FX_Rate" value="1.00"><br><br>
     </div>
 
-    <label>Total Contract Quantity:</label><br>
+    <label>Total Contract Quantity:</label>
     <input type="number" min="0.00" step="any" name="Quantity"> (MT)<br><br>
 
-    <label>Duty:</label><br>
+    <label>Duty:</label>
     <select id="duty" name="Duty">
       <option value="0">0%</option>
       <option value="4">4%</option>
       <option value="5">5%</option>
     </select><br><br>
 
-    <label>Product Handling Type:</label><br>
+    <label>Product Handling Type:</label>
     <select id="handlingtype" name="Handling_Type">
       <option value="Ambient">Ambient</option>
       <option value="Chilled">Chilled</option>
@@ -87,7 +87,7 @@ require_once('config.php');
     <!-- Estimated Pallets Amount:<br> 
     <input type="number" name="Pallets" value = 20> (Pallets)<br><br> -->
 
-    <label>Supplier Term:</label><br>
+    <label>Supplier Term:</label>
     <select id="supplierterm" name="Supplier_Term">
       <option value="FOB">FOB</option>
       <option value="CNF/CIF">CNF/CIF</option>
@@ -95,8 +95,8 @@ require_once('config.php');
 
     <!-- Hide departure port when supplier term is CNF/CIF -->
     <div id="seafreightcontrol">
-    <label>Departure Port: </label><br>
-      (Please choose Others if the departure port is not in the list or you need to use a manual rate)<br>
+    <label>Departure Port: </label>
+      
       <select id="dport" name="Departure_Port">
         <option value="">--- Select Departure Port ---</option>
         <?php
@@ -107,11 +107,12 @@ require_once('config.php');
         }
         ?>
         <option value="Others">Others</option>
-      </select> <br><br>
+      </select> <br>
+      (Please choose Others if the departure port is not in the list or you need to use a manual rate)<br><br>
 
-      Please Enter Sea Freight Quote If You Chose Others: <br>
-      <input type="number" value="0" min="0.00" step="any" name="spotrate">
-      <br><br>
+      <label for "spotrate">Sea Freight Spotrate:</label>
+      <input id="spotrate" type="number" value="0" min="0.00" step="any" name="spotrate">
+      <br>(Please Enter Sea Freight Quote If You Chose Others) <br><br>
     </div>
 
     <!-- Container Type:<br>
@@ -127,7 +128,7 @@ require_once('config.php');
     <input type="radio" name="Container_Size" value="40">40 ft
     <br><br> -->
 
-    <label>Customer:</label><br>
+    <label>Customer:</label>
     <select id="customer" name="Customer">
       <option value="">--- Select Customer ---</option>
       <?php
@@ -139,7 +140,7 @@ require_once('config.php');
       ?>
     </select><br><br>
 
-    <label>Delivery From:</label><br>
+    <label>Delivery From:</label>
     <select id="shippingfrom" name="Shipping_From">
       <option value="Our Warehouse">Our Warehouse</option>
       <option value="Direct FCL">Direct FCL</option>
@@ -151,12 +152,12 @@ require_once('config.php');
 
     <!-- Hide storage period when the shipping from id direct FCL -->
     <div id="storagecontrol">
-    <label>Product Storage Period: </label><br>
+    <label>Product Storage Period: </label>
       <input type="number" name="Storage" value=0> (Weeks)<br>
     </div>
 
     <br>
-    <label>Margin:</label><br>
+    <label>Margin:</label>
     <input type="number" min="0" step="0.1" name="Margin">&nbsp%<br><br>
 
     <br><br><br>
