@@ -1,6 +1,7 @@
 body {
-    background-color: rgb(137, 94, 36);
+    background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(250, 232, 200);
 }
 
 #calculate {
@@ -19,11 +20,13 @@ label {
 }
 
 select {
-    background-color: rgb(137, 94, 36);
+    background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(250, 232, 200);
 }
 
 input {
-    background-color: rgb(137, 94, 36);
+    background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(250, 232, 200);
 }
