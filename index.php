@@ -15,7 +15,7 @@ require_once('config.php');
   <!-- <img src="/picture/logo.jpg"> -->
 </head>
 
-<body style="background-color:rgb(166, 102, 4)">
+<body>
   <form action="result.php" method="post">
 
   <label>Supplier:</label>

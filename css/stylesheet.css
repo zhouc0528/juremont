@@ -1,3 +1,7 @@
+body{
+    background-color: rgb(166, 102, 4);
+}
+
 #calculate
 {
     font-weight: normal;
@@ -14,3 +18,11 @@ label {
     width: 250px;
     text-align: left;
   }
+
+  select{
+    background-color: rgb(166, 102, 4);
+}
+
+input{
+    background-color: rgb(166, 102, 4);
+}

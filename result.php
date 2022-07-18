@@ -5,7 +5,7 @@
     <link rel="icon" href="/picture/icon.png">
     <title>Result Page</title>
 </head>
-
+<body style="background-color:rgb(166, 102, 4)">
 <table>
     <?php
     require_once('config.php');
@@ -250,5 +250,6 @@
     echo "AUD$ " . $saleprice;
     ?>
 </table>
+</body>
 
 </html>
