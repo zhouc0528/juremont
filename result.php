@@ -5,7 +5,7 @@
     <link rel="icon" href="/picture/icon.png">
     <title>Result Page</title>
 </head>
-<body style="background-color:rgb(166, 102, 4); font-family: 'Courier New', Courier, monospace;">
+<body style="background-color: rgb(137, 94, 36); font-family: Verdana, Geneva, Tahoma, sans-serif; ">
 <table>
     <?php
     require_once('config.php');

@@ -18,7 +18,7 @@ require_once('config.php');
 <body>
   <form action="result.php" method="post">
 
-  <label>Supplier:</label>
+    <label>Supplier:</label>
     <select id="supplier" name="Supplier">
       <option value="">--- Select Supplier ---</option>
       <?php
@@ -63,7 +63,7 @@ require_once('config.php');
     </select><br><br>
 
     <div id="fxcontrol" style="display: none;">
-    <label>Exchange Rate:</label>
+      <label>Exchange Rate:</label>
       <input type="number" min="0.00" step="0.01" name="FX_Rate" value="1.00"><br><br>
     </div>
 
@@ -95,8 +95,8 @@ require_once('config.php');
 
     <!-- Hide departure port when supplier term is CNF/CIF -->
     <div id="seafreightcontrol">
-    <label>Departure Port: </label>
-      
+      <label>Departure Port: </label>
+
       <select id="dport" name="Departure_Port">
         <option value="">--- Select Departure Port ---</option>
         <?php
@@ -152,7 +152,7 @@ require_once('config.php');
 
     <!-- Hide storage period when the shipping from id direct FCL -->
     <div id="storagecontrol">
-    <label>Product Storage Period: </label>
+      <label>Product Storage Period: </label>
       <input type="number" name="Storage" value=0> (Weeks)<br>
     </div>
 
