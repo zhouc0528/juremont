@@ -12,7 +12,27 @@ require_once('config.php');
   <script type="text/javascript" src="/javascript/productcascading.js"></script>
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
   <link rel="stylesheet" href="/css/stylesheet.css">
-  <h1 style="font-family: 'Courier New', Courier, monospace;">Welcome to Use the Cost Calculator</h1>
+  <table>
+    <tr>
+      <td>
+        <img src="/picture/logo-trans.png" style="width: 160px; height:75px;">
+      </td>
+      <td>
+        <h1 style="font-family: 'Courier New', Courier, monospace;">
+          &nbsp;&nbsp;
+          Cost Calculator
+        </h1>
+      </td>
+    </tr>
+  </table>
+  <ul style="margin-left: -20px; font-size:small; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+    <li>This calculator works for imported Ambient/Temp Control/Frozen stock selling within Australia</li>
+    <li>Web browser is accessible only in Juremont network environment. VPN login is required if not in Juremont network environment</li>
+    <li>Not applying to LCL shipment and Airfreight shipment</li>
+    <li>Auto F024 form will be developed at 2nd stage</li>
+  </ul>
+
+
 </head>
 
 <body>
@@ -160,24 +180,23 @@ require_once('config.php');
     <label>Margin:</label>
     <input type="number" min="0" step="0.1" name="Margin">&nbsp%<br><br><br>
 
-    <input type="submit" value="Calculate" id="calculate"><br><br>
+    <input type="submit" value="Calculate" id="calculate">
   </form>
 </body>
 
-<footer>
+<footer style="margin-top: 40px;">
   <table>
     <tr>
       <td>
-        &copy; Copyright 
+        &copy; Copyright
         <script>
           document.write(new Date().getFullYear())
         </script>: Juremont Pty Ltd<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;Support:
-        <a href="mailto:accounts@jure.com.au">Juremont Finance Team</a>
       </td>
-
       <td>
-        <img src="/picture/logo-trans.png" style="width: 400px; height:75px; margin-left:50px">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Support:
+        <a href="mailto:accounts@jure.com.au" style="color: white;">Juremont Finance Team</a>
       </td>
     </tr>
   </table>

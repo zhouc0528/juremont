@@ -5,9 +5,18 @@
     <link rel="icon" href="/picture/icon.png">
     <title>Result Page</title>
     <link rel="stylesheet" href="/css/resultstyle.css">
-    <h1 style="font-family: 'Courier New', Courier, monospace;">
-        Here is Your Input Summary:
-    </h1>
+    <table>
+        <tr>
+            <td>
+                <img src="/picture/logo-trans.png" style="width: 160px; height:75px;">
+            </td>
+            <td>
+                <h1 style="font-family: 'Courier New', Courier, monospace;">
+                &nbsp;Input Summary and Result
+                </h1>
+            </td>
+        </tr>
+    </table>
 </head>
 
 <body>
@@ -252,27 +261,24 @@
         echo "<td>";
         $saleprice = number_format(($totalcharge / $weightpercontainer / (1 - $margin)), 0);
         echo "AUD$ " . $saleprice;
-        echo "<tr>" . "<td>";
-        echo "<tr>" . "<td>";
-        echo "<tr>" . "<td>";
         ?>
     </table>
 </body>
 
-<footer>
+<footer style="margin-top: 40px;">
     <table>
         <tr>
             <td>
-                &copy; Copyright 
+                &copy; Copyright
                 <script>
                     document.write(new Date().getFullYear())
                 </script>: Juremont Pty Ltd<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;Support:
-                <a href="mailto:accounts@jure.com.au">Juremont Finance Team</a>
             </td>
 
             <td>
-                <img src="/picture/logo-trans.png" style="width: 400px; height:75px; margin-left:20px">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Support:
+                <a href="mailto:accounts@jure.com.au" style="color: white;">Juremont Finance Team</a>
             </td>
         </tr>
     </table>
