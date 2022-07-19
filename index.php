@@ -12,7 +12,7 @@ require_once('config.php');
   <script type="text/javascript" src="/javascript/productcascading.js"></script>
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
   <link rel="stylesheet" href="/css/stylesheet.css">
-  <img src="/picture/logo.jpg" style="width: 700px; height:150px">
+  <h1 style="font-family: 'Courier New', Courier, monospace;">Welcome to Use the Cost Calculator</h1>
 </head>
 
 <body>
@@ -160,15 +160,27 @@ require_once('config.php');
     <label>Margin:</label>
     <input type="number" min="0" step="0.1" name="Margin">&nbsp%<br><br><br>
 
-    <input type="submit" value="Calculate" id="calculate"><br>
+    <input type="submit" value="Calculate" id="calculate"><br><br>
   </form>
 </body>
 
 <footer>
-  <p>&copy;Copyright <script>document.write(new Date().getFullYear())</script>: Juremont Pty Ltd<br>
-  Support:
-  <a href="mailto:accounts@jure.com.au">accounts@jure.com.au</a>
-</p>
+  <table>
+    <tr>
+      <td>
+        &copy; Copyright 
+        <script>
+          document.write(new Date().getFullYear())
+        </script>: Juremont Pty Ltd<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Support:
+        <a href="mailto:accounts@jure.com.au">Juremont Finance Team</a>
+      </td>
+
+      <td>
+        <img src="/picture/logo.jpg" style="width: 400px; height:75px; margin-left:50px">
+      </td>
+    </tr>
+  </table>
 </footer>
 
 </html>
