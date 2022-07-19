@@ -177,7 +177,7 @@ require_once('config.php');
       </td>
 
       <td>
-        <img src="/picture/logo.jpg" style="width: 400px; height:75px; margin-left:50px">
+        <img src="/picture/logo-trans.png" style="width: 400px; height:75px; margin-left:50px">
       </td>
     </tr>
   </table>

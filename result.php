@@ -272,7 +272,7 @@
             </td>
 
             <td>
-                <img src="/picture/logo.jpg" style="width: 400px; height:75px; margin-left:20px">
+                <img src="/picture/logo-trans.png" style="width: 400px; height:75px; margin-left:20px">
             </td>
         </tr>
     </table>
