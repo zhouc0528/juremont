@@ -2,20 +2,12 @@ body {
     background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color:rgb(250, 232, 200);
-}
-
-#calculate {
-    font-weight: normal;
-}
-
-#calculate:hover {
-    font-weight: bold;
-    transform: scale(1.2);
+    margin-left: 200px;
 }
 
 label {
     display: inline-block;
-    width: 250px;
+    width: 280px;
     text-align: left;
 }
 
@@ -23,10 +15,24 @@ select {
     background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color:rgb(250, 232, 200);
+    border-color: rgb(250, 232, 200);
 }
 
 input {
     background-color: rgb(84, 49, 44);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color:rgb(250, 232, 200);
+    border-color: rgb(250, 232, 200);
+}
+
+#calculate {
+    font-weight: normal;
+    cursor: pointer;
+    margin-left: 290px;
+    padding: 10px;
+}
+
+#calculate:hover {
+    font-weight: bold;
+    transform: scale(1.5);
 }

@@ -4,6 +4,7 @@
 <head>
     <link rel="icon" href="/picture/icon.png">
     <title>Result Page</title>
+    <link rel="stylesheet" href="/css/resultstyle.css">
 </head>
 <body style="background-color: rgb(84, 49, 44); font-family: Verdana, Geneva, Tahoma, sans-serif; color:rgb(250, 232, 200); ">
 <table>
@@ -89,8 +90,9 @@
     echo "<tr>" . "<td>" . "Delivery From: " . "<td>" . $_POST['Shipping_From'];
 
     echo "<tr>" . "<td>" . "Storage Period: " . "<td>" . $_POST['Storage'];
-    echo "<tr>" . "<td>";
-    echo "<tr>" . "<td>" . "--------------------------------------" . "<td>" . "--------------------------------------------------";
+    echo "<tr>" . "<td>" . "<td>" ;
+    echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
+    
 
     echo "<tr>" . "<td>" . "This section is for testing (will delete): ";
     echo "<tr>" . "<td>";
@@ -235,8 +237,8 @@
 
 
     echo "total charge: " . $totalcharge;
-    echo "<tr>" . "<td>";
-    echo "<tr>" . "<td>" . "--------------------------------------" . "<td>" . "--------------------------------------------------";
+    echo "<tr>" . "<td>" . "<td>" ;
+    echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
     echo "<tr>" . "<td>" . "Total Product Cost/ MT: ";
     echo "<td>";
     $costofproduct = number_format(($totalcharge / $weightpercontainer), 0);
@@ -251,5 +253,12 @@
     ?>
 </table>
 </body>
+
+<footer>
+  <p>&copy;Copyright <script>document.write(new Date().getFullYear())</script>: Juremont Pty Ltd<br>
+  Support:
+  <a href="mailto:accounts@jure.com.au">accounts@jure.com.au</a>
+</p>
+</footer>
 
 </html>
