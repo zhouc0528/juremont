@@ -132,7 +132,7 @@ require_once('config.php');
       </select> <br>
       (Please choose Others if the departure port is not in the list or you need to use a manual rate)<br><br>
 
-      <label for "spotrate">Sea Freight Spotrate:</label>
+      <label>Sea Freight Spotrate:</label>
       <input id="spotrate" type="number" value="0" min="0.00" step="any" name="spotrate">
       <br>(Please Enter Sea Freight Quote If You Chose Others) <br><br>
     </div>
@@ -194,7 +194,7 @@ require_once('config.php');
   </form>
 </body>
 
-<footer style="margin-top: 40px;">
+<footer style="margin-top: 30px;">
   <table>
     <tr>
       <td>
