@@ -52,10 +52,10 @@
         /*     echo "<tr>" . "<td>" . "Container Size: " . "<td>" .$containersize; */
 
         $product = $_POST['Product'];
-        $product_sql = "SELECT ItemDescription FROM Product WHERE ItemNo ='$product'";
+        $product_sql = "SELECT * FROM Product WHERE ItemNo ='$product'";
         $product_result = $conn->query($product_sql);
         $product_row = $product_result->fetch_assoc();
-        echo "<tr>" . "<td>" . "Product: " . "<td>" . $product_row["ItemDescription"];
+        echo "<tr>" . "<td>" . "Product: " . "<td>" . $product_row["ItemDescription"] .'   ('. $product_row['ItemNo'] . ')';
 
         echo "<tr>" . "<td>" . "Product Unit Purchase Price: " . "<td>" . $_POST['Product_Price'] . " /MT";
 
