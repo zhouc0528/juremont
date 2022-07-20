@@ -162,6 +162,14 @@ require_once('config.php');
       ?>
     </select><br><br>
 
+    <label>Sale Currency:</label>
+    <select id="salecurrency" name="SaleCurrency">
+      <option value="AUD">AUD</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="GBP">GBP</option>
+    </select><br><br>
+
     <label>Delivery From:</label>
     <select id="shippingfrom" name="Shipping_From">
       <option value="Our Warehouse">Our Warehouse</option>
