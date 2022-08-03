@@ -12,7 +12,7 @@
             </td>
             <td>
                 <h1 style="font-family: 'Courier New', Courier, monospace;">
-                &nbsp;Input Summary and Result
+                    &nbsp;Input Summary and Result
                 </h1>
             </td>
         </tr>
@@ -55,7 +55,7 @@
         $product_sql = "SELECT * FROM Product WHERE ItemNo ='$product'";
         $product_result = $conn->query($product_sql);
         $product_row = $product_result->fetch_assoc();
-        echo "<tr>" . "<td>" . "Product: " . "<td>" . $product_row["ItemDescription"] .'   ('. $product_row['ItemNo'] . ')';
+        echo "<tr>" . "<td>" . "Product: " . "<td>" . $product_row["ItemDescription"] . '   (' . $product_row['ItemNo'] . ')';
 
         echo "<tr>" . "<td>" . "Product Unit Purchase Price: " . "<td>" . $_POST['Product_Price'] . " /MT";
 
@@ -104,9 +104,9 @@
         echo "<tr>" . "<td>" . "<td>";
         echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
 
-    /* ---------------------------------------------------------------------- 
+        /* ---------------------------------------------------------------------- 
     below echo.result will be deleted, only for testing
-    */ 
+    */
 
         echo "<tr>" . "<td>" . "This section is for testing (will delete): ";
         echo "<tr>" . "<td>";
@@ -129,7 +129,7 @@
         #calculate sea freight based on container type and departure port.
         $dport = $_POST['Departure_Port'];
         $containertype = $containersize . " " . $ctype;
-        echo "<tr>" . "<td>". "Container Type: ". "<td>" .$containertype;
+        echo "<tr>" . "<td>" . "Container Type: " . "<td>" . $containertype;
 
         $seafreight_sql = "SELECT Rate FROM SeaFreight WHERE PortofLoading ='$dport' and ContainerType ='$containertype'";
         $seafreight_result = $conn->query($seafreight_sql);
@@ -144,7 +144,7 @@
         };
 
         echo "<tr>" . "<td>" . "Sea Freight: " . "<td>" . $seafreightrate;
-        
+
 
         /* $seafreightdecimal = number_format($seafreightrate,2);
     echo "seafreight: ".$seafreightdecimal;
@@ -218,20 +218,20 @@
                             $seafreightrate + $landedcost + $whschargeperorder + ($whschargeperpallet * $pallets) +
                             $devanning + ($storagecharge * $_POST['Storage'] * $pallets) + ($transportcharge * (1 + $fuellevy));
 
-                            echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . $devanning;
-                            echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . $pallets;
-                            echo "<tr>" . "<td>" . "Storage Charge: " . "<td>"  . $storagecharge;
-                            echo "<tr>" . "<td>" . "Transport Charge: " . "<td>"  . $transportcharge;
+                        echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . $devanning;
+                        echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . $pallets;
+                        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>"  . $storagecharge;
+                        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>"  . $transportcharge;
                         break;
                     case "CNF/CIF":
                         $totalcharge = (130 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
                             $landedcost + $whschargeperorder + ($whschargeperpallet * $pallets) +
                             $devanning + ($storagecharge * $_POST['Storage'] * $pallets) + ($transportcharge * (1 + $fuellevy));
 
-                            echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . $devanning;
-                            echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . $pallets;
-                            echo "<tr>" . "<td>" . "Storage Charge: " . "<td>"  . $storagecharge;
-                            echo "<tr>" . "<td>" . "Transport Charge: " . "<td>"  . $transportcharge;
+                        echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . $devanning;
+                        echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . $pallets;
+                        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>"  . $storagecharge;
+                        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>"  . $transportcharge;
                         break;
                 };
                 break;
@@ -242,7 +242,7 @@
                         $totalcharge = (100 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $seafreightrate + $landedcost;
                         break;
                     case "CNF/CIF":
-                        $totalcharge = (100 * $weightpercontainer) +($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $landedcost;
+                        $totalcharge = (100 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $landedcost;
                         break;
                 };
                 break;
@@ -254,22 +254,45 @@
         echo "<tr>" . "<td>" . "Total Charge: " . "<td>"  . $totalcharge;
         echo "<tr>" . "<td>" . "<td>";
         echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
-        
-    /* ---------------------------------------------------------------------- 
+
+        /* ---------------------------------------------------------------------- 
     above echo.result will be deleted, only for testing
-    */    
+    */
+
+
+        /* we buy in Euro, sell in AUD
+        we buy in AUD, sell in AUD
+        we buy in USD, sell in AUD or USD
+        we buy GBP, sell in GBP or AUD 
+
+        This is a easy way but not comprehensive to calculate the total cost related to currency:*/
+
         #calculation result starts here
         echo "<tr>" . "<td>" . "Total Product Cost/ MT: ";
         echo "<td>";
-        $costofproduct = number_format(($totalcharge / $weightpercontainer * $_POST['FX_Rate']), 0);
-        echo $_POST['SaleCurrency'].": " . $costofproduct;
+        switch ($_POST['SaleCurrency'] == $_POST['Currency']) {
+            case true:
+                $costofproduct = number_format(($totalcharge / $weightpercontainer * $_POST['FX_Rate']), 0);
+                $marginvalue = number_format(($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']) * $margin, 0);
+                $saleprice = number_format(($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']), 0);
+                break;
+
+            case false:
+                $costofproduct = number_format(($totalcharge / $weightpercontainer), 0);
+                $marginvalue = number_format(($totalcharge / $weightpercontainer / (1 - $margin)) * $margin, 0);
+                $saleprice = number_format(($totalcharge / $weightpercontainer / (1 - $margin)), 0);
+                break;
+        }
+
+
+
+        echo $_POST['SaleCurrency'] . ": " . $costofproduct;
         echo "<tr>" . "<td>" . "Expected Margin/ MT: ";
         echo "<td>";
-        echo $_POST['SaleCurrency'].": "  . number_format(($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']) * $margin, 0);
+        echo $_POST['SaleCurrency'] . ": "  . $marginvalue;
         echo "<tr>" . "<td>" . "Recommended Sale Price/ MT: ";
-        echo "<td>";
-        $saleprice = number_format(($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']), 0);
-        echo $_POST['SaleCurrency'].": "  . $saleprice;
+        echo "<td>";        
+        echo $_POST['SaleCurrency'] . ": "  . $saleprice;
         ?>
     </table>
 </body>
