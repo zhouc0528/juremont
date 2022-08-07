@@ -36,7 +36,7 @@
         $itemgroup_row = $itemgroup_result->fetch_assoc();
         echo "<tr>" . "<td>" . "Item Group: " . "<td>" . $itemgroup_row["ItmsGrpNam"];
 
-        #container size and quantity per PO is pre-defined in the itemgroup table
+        /* #container size and quantity per PO is pre-defined in the itemgroup table
         $containersize_sql = "SELECT ContainerSize FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
         $containersize_result = $conn->query($containersize_sql);
         $containersize_row = $containersize_result->fetch_assoc();
@@ -45,11 +45,10 @@
         $weightpercontainer_sql = "SELECT WeightperContainer FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
         $weightpercontainer_result = $conn->query($weightpercontainer_sql);
         $weightpercontainer_row = $weightpercontainer_result->fetch_assoc();
-        $weightpercontainer = $weightpercontainer_row["WeightperContainer"];
+        $weightpercontainer = $weightpercontainer_row["WeightperContainer"]; */
 
-        /*     echo "<tr>" . "<td>" . "Weight per Container: " . "<td>" .$weightpercontainer; */
-
-        /*     echo "<tr>" . "<td>" . "Container Size: " . "<td>" .$containersize; */
+        $weightpercontainer = $_POST['QuantityperShipment'];
+        $containersize = $_POST['Container_Size'];
 
         $product = $_POST['Product'];
         $product_sql = "SELECT * FROM Product WHERE ItemNo ='$product'";
@@ -64,6 +63,10 @@
         echo "<tr>" . "<td>" . "Exchange Rate: " . "<td>" . $_POST['FX_Rate'];
 
         echo "<tr>" . "<td>" . "Total Contract Quantity: " . "<td>" . $_POST['Quantity'] . " MT"; //The quantity is only for display, which is the quantity of whole contract
+
+        echo "<tr>" . "<td>" . "Weight per Shipment: " . "<td>" .$weightpercontainer. " MT";
+
+        echo "<tr>" . "<td>" . "Container Size: " . "<td>" .$containersize. " ft";
 
         echo "<tr>" . "<td>" . "Duty: " . "<td>" . $_POST['Duty'] . " %";
 

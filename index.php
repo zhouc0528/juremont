@@ -92,6 +92,14 @@ require_once('config.php');
     <label>Total Contract Quantity:</label>
     <input type="number" min="0.00" step="any" name="Quantity"> (MT)<br><br>
 
+    <label>Weight per Shipment:</label>
+    <input type="number" min="0.00" step="any" name="QuantityperShipment"> (MT)<br><br>
+
+    <label>Container Size: </label>
+    <input type="radio" name="Container_Size" value="20">20 ft &nbsp&nbsp&nbsp
+    <input type="radio" name="Container_Size" value="40">40 ft
+    <br><br>
+
     <label>Duty:</label>
     <select id="duty" name="Duty">
       <option value="0">0%</option>
@@ -134,7 +142,7 @@ require_once('config.php');
 
       <label>Sea Freight Spotrate:</label>
       <input id="spotrate" type="number" value="0" min="0.00" step="any" name="spotrate">
-      <br>(Please Enter Sea Freight Quote If You Chose Others) <br><br>
+      <br>(Please Enter Sea Freight Quote <strong><em>ONLY</em></strong> When You Chose Others) <br><br>
     </div>
 
     <!-- Container Type:<br>
@@ -144,11 +152,6 @@ require_once('config.php');
       <option value="20 RF">20' RF</option>
       <option value="40 RF">40' RF</option>
     </select><br><br> -->
-
-    <!--     Container Size: <br>
-    <input type="radio" name="Container_Size" value="20">20 ft &nbsp&nbsp&nbsp
-    <input type="radio" name="Container_Size" value="40">40 ft
-    <br><br> -->
 
     <label>Customer:</label>
     <select id="customer" name="Customer">
