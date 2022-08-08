@@ -107,12 +107,18 @@ require_once('config.php');
       <option value="5">5%</option>
     </select><br><br>
 
-    <label>Product Handling Type:</label>
+    <label>Product Handling Type: </label>
+    <input type="radio" name="Handling_Type" value="Ambient">Ambient &nbsp&nbsp&nbsp
+    <input type="radio" name="Handling_Type" value="Chilled">Chilled &nbsp&nbsp&nbsp
+    <input type="radio" name="Handling_Type" value="Frozen">Frozen
+    <br><br>
+
+<!--     <label>Product Handling Type:</label>
     <select id="handlingtype" name="Handling_Type">
       <option value="Ambient">Ambient</option>
       <option value="Chilled">Chilled</option>
       <option value="Frozen">Frozen</option>
-    </select><br><br>
+    </select><br><br> -->
 
     <!-- Estimated Pallets Amount:<br> 
     <input type="number" name="Pallets" value = 20> (Pallets)<br><br> -->
