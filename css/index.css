@@ -24,4 +24,5 @@ button{
 button:hover {
     font-weight: bold;
     transform: scale(1.2);
+    border-style: inset;
 }

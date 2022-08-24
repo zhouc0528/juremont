@@ -34,7 +34,7 @@ require_once('config.php');
     <select id="supplier" name="Supplier">
       <option value="">--- Select Supplier ---</option>
       <?php
-      $sql = "SELECT * from BP b  where b.BPCode  like 'S%' or b.BPCode  like 'F%' Order by b.BPName";
+      $sql = "SELECT * from BP b  where BPType = 'S' and b.InUse = 1 Order by b.BPName"; 
       $result = $conn->query($sql);
       while ($row = $result->fetch_assoc()) {
         echo "<option value='{$row["BPCode"]}'>{$row['BPName']}</option>";
@@ -153,7 +153,7 @@ require_once('config.php');
     <select id="customer" name="Customer">
       <option value="">--- Select Customer ---</option>
       <?php
-      $sql = "SELECT * from BP b  where b.BPCode  like 'C%' Order by b.BPName";
+      $sql = "SELECT * from BP b  where b.BPType  = 'C' and InUse = 1 Order by b.BPName";
       $result = $conn->query($sql);
       while ($row = $result->fetch_assoc()) {
         echo "<option value='{$row["BPCode"]}'>{$row['BPName']}</option>";
