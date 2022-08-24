@@ -28,5 +28,25 @@ require_once('config.php');
 </head>
 
 <body>
-    NZ is not completed yet
+    We are working on the NZ page.
 </body>
+
+<footer style="margin-top: 30px;">
+  <table>
+    <tr>
+      <td>
+        &copy; Copyright
+        <script>
+          document.write(new Date().getFullYear())
+        </script>: Juremont Pty Ltd<br>
+      </td>
+      <td>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Support:
+        <a href="mailto:accounts@jure.com.au" style="color: white;">Juremont Finance Team</a>
+      </td>
+    </tr>
+  </table>
+</footer>
+
+</html>
