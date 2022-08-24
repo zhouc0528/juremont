@@ -295,6 +295,8 @@
         echo "<tr>" . "<td>" . "Recommended Sale Price/ MT: ". "<td>".$_POST['SaleCurrency'] . " "  . number_format($saleprice,0);
         ?>
     </table>
+
+    <button onClick="window.print()">Print</button>
 </body>
 
 <footer style="margin-top: 40px;">

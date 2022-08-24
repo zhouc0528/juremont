@@ -7,11 +7,11 @@ require_once('config.php');
 
 <head>
   <link rel="icon" href="/picture/icon.png">
-  <title>Cost of Product Calculation</title>
+  <title>Cost of Product Calculation - AU</title>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/javascript/productcascading.js"></script>
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
-  <link rel="stylesheet" href="/css/stylesheet.css">
+  <link rel="stylesheet" href="/css/au.css">
   <table>
     <tr>
       <td>
@@ -20,19 +20,12 @@ require_once('config.php');
       <td>
         <h1 style="font-family: 'Courier New', Courier, monospace;">
           &nbsp;&nbsp;
-          Cost Calculator
+          Cost Calculator (Australia)
         </h1>
       </td>
     </tr>
   </table>
-  <div style="margin-bottom: 25px; border-style: inset; width: 800px;">
-    <ul style="margin-left: -20px; font-size:small; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
-      <li>This calculator works for imported Ambient/Temp Control/Frozen stock selling within Australia</li>
-      <li>Web browser is accessible only in Juremont network environment. VPN login is required if not in Juremont network environment</li>
-      <li>Not applying to LCL shipment and Airfreight shipment</li>
-      <li>Auto F024 form will be developed at 2nd stage</li>
-  </div>
-  </ul>
+
 
 
 </head>
