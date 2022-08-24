@@ -25,9 +25,6 @@ require_once('config.php');
       </td>
     </tr>
   </table>
-
-
-
 </head>
 
 <body>
