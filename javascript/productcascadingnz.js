@@ -3,7 +3,7 @@ $(document).ready(function() {
       var ItmsGrpCod = $(this).val();
       if (ItmsGrpCod) {
         $.ajax({
-          url: "/functions/productcascading.php",
+          url: "/functions/productcascadingnz.php",
           type: "POST",
           cache: false,
           data: {
