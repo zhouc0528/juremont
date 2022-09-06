@@ -4,7 +4,7 @@
 <head>
     <link rel="icon" href="/picture/icon.png">
     <title>Result Page</title>
-    <link rel="stylesheet" href="/css/resultstyle.css">
+    <link rel="stylesheet" href="/css/resultstylenz.css">
     <table>
         <tr>
             <td>
@@ -22,7 +22,7 @@
 <body>
     <table>
         <?php
-        require_once('functions/config.php');
+        require_once('functions/confignz.php');
 
         $supplier = $_POST['Supplier'];
         $supplier_sql = "SELECT BPName FROM BP WHERE BPCode ='$supplier'";
@@ -35,20 +35,6 @@
         $itemgroup_result = $conn->query($itemgroup_sql);
         $itemgroup_row = $itemgroup_result->fetch_assoc();
         echo "<tr>" . "<td>" . "Item Group: " . "<td>" . $itemgroup_row["ItmsGrpNam"];
-
-        /* #container size and quantity per PO is pre-defined in the itemgroup table
-        $containersize_sql = "SELECT ContainerSize FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
-        $containersize_result = $conn->query($containersize_sql);
-        $containersize_row = $containersize_result->fetch_assoc();
-        $containersize = $containersize_row["ContainerSize"];
-
-        $weightpercontainer_sql = "SELECT WeightperContainer FROM ItemGroup WHERE ItmsGrpCod ='$itemgroup'";
-        $weightpercontainer_result = $conn->query($weightpercontainer_sql);
-        $weightpercontainer_row = $weightpercontainer_result->fetch_assoc();
-        $weightpercontainer = $weightpercontainer_row["WeightperContainer"]; */
-
-        $weightpercontainer = $_POST['QuantityperShipment'];
-        $containersize = $_POST['Container_Size'];
 
         $product = $_POST['Product'];
         $product_sql = "SELECT * FROM Product WHERE ItemNo ='$product'";
@@ -64,13 +50,17 @@
 
         echo "<tr>" . "<td>" . "Total Contract Quantity: " . "<td>" . $_POST['Quantity'] . " MT"; //The quantity is only for display, which is the quantity of whole contract
 
+        $weightpercontainer = $_POST['QuantityperShipment'];
+
         echo "<tr>" . "<td>" . "Weight per Shipment: " . "<td>" .$weightpercontainer. " MT";
+
+        $containersize = $_POST['Container_Size'];
 
         echo "<tr>" . "<td>" . "Container Size: " . "<td>" .$containersize. " ft";
 
         echo "<tr>" . "<td>" . "Duty: " . "<td>" . $_POST['Duty'] . " %";
 
-        //change finance percentage here:
+        #change finance percentage here:
         switch (true) {
             case $_POST['Storage'] <= 4:
                 $finance = 0.015;
@@ -89,12 +79,6 @@
 
         echo "<tr>" . "<td>" . "Product Handling Type: " . "<td>" . $_POST['Handling_Type'];
 
-        // echo "<tr>"."<td>"."Estimated Pallets Amount: "."<td>".$_POST['Pallets']." Pallets";
-
-        echo "<tr>" . "<td>" . "Supplier Term: " . "<td>" . $_POST['Supplier_Term'];
-
-        echo "<tr>" . "<td>" . "Departure Port: " . "<td>" . $_POST['Departure_Port'];
-
         $customer = $_POST['Customer'];
         $customer_sql = "SELECT BPName FROM BP WHERE BPCode ='$customer'";
         $customer_result = $conn->query($customer_sql);
@@ -107,192 +91,83 @@
         echo "<tr>" . "<td>" . "<td>";
         echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
 
-        /* ---------------------------------------------------------------------- 
-    related cost summary
-    */
+        /*related cost summary*/
 
         echo "<tr>" . "<td>" . "Related Cost Summary:";
         echo "<tr>" . "<td>";
 
-        #convert product handling type to container type
-        switch ($_POST['Handling_Type']) {
-            case "Ambient":
-                $ctype = "DC";
-                break;
-            case "Chilled":
-                $ctype = "RF";
-                break;
-            case "Frozen":
-                $ctype = "RF";
-                break;
-        };
+        $landedcost = 1500; //change landed cost here.
+        echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "NZD ". $landedcost;
 
-        #calculate sea freight based on container type and departure port.
-        $dport = $_POST['Departure_Port'];
-        $containertype = $containersize . " " . $ctype;
-        // echo "<tr>" . "<td>" . "Container Type: " . "<td>" . $containertype;
-
-        $seafreight_sql = "SELECT Rate FROM SeaFreight WHERE PortofLoading ='$dport' and ContainerType ='$containertype'";
-        $seafreight_result = $conn->query($seafreight_sql);
-        $seafreight_row = $seafreight_result->fetch_assoc();
-
-        switch ($dport) {
-            case "Others";
-                $seafreightrate = $_POST['spotrate'] / 0.7;
-                break;
-            default:
-                $seafreightrate = $seafreight_row["Rate"] / 0.7;
-        };
-
-        echo "<tr>" . "<td>" . "Sea Freight: " . "<td>" . "AUD ". number_format($seafreightrate,2);
-
-
-        /* $seafreightdecimal = number_format($seafreightrate,2);
-    echo "seafreight: ".$seafreightdecimal;
-    echo "<tr>"."<td>"; */
-
-        $landedcost = 2500; //change landed cost here.
-        echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "AUD ". $landedcost;
-
-        /*currently duty is not considered*/
-        $whschargeperorder = 3.76 * 2; //inwards + outwards admin fee
-        $whschargeperpallet = 3.44 + 3.48 + 1.00 + 0.80 + 3.48 + 3.44;
-
-        #devanning charge by container type: 20' $340.40, 40' $473.59 
-        #ambient storage = 3.25, temp controlled storage = 4.90 per pallet
-        /*currently only using flat full truck load rate for metro delivery*/
+        $whschargeperorder = 8.15+5.31; //inwards + outwards admin fee
+        $whschargeperpallet = 6.14+3.23+2.85+2.29+3.4+3.23+7.9;
 
         $storagetype = $containersize . " " . $_POST['Handling_Type'];
-        // echo "<tr>" . "<td>" . "Storage Type: " . "<td>" . $storagetype;
 
         switch ($storagetype) {
             case "20 Ambient":
-                $devanning = 340.40;
+                $devanning = 300;
                 $pallets = 20;
-                $storagecharge = 3.25;
-                $transportcharge = 460.00;
+                $storagecharge = 4.52;
+                $transportcharge = 250;
                 break;
             case "20 Chilled":
-                $devanning = 340.40;
+                $devanning = 300;
                 $pallets = 20;
-                $storagecharge = 4.90;
-                $transportcharge = 650.00;
+                $storagecharge = 4.52;
+                $transportcharge = 250;
                 break;
             case "40 Ambient":
-                $devanning = 473.59;
+                $devanning = 550;
                 $pallets = 40;
-                $storagecharge = 3.25;
-                $transportcharge = 720.00;
+                $storagecharge = 4.52;
+                $transportcharge = 365;
                 break;
             case "40 Chilled":
-                $devanning = 473.59;
+                $devanning = 550;
                 $pallets = 40;
-                $storagecharge = 4.90;
-                $transportcharge = 900.00;
-                break;
-            case "20 Frozen":
-                $devanning = 450.00;
-                $pallets = 20;
-                $storagecharge = 5.00;
-                $transportcharge = 600;
-                break;
-            case "40 Frozen":
-                $devanning = 700.00;
-                $pallets = 40;
-                $storagecharge = 5.00;
-                $transportcharge = 1200;
+                $storagecharge = 4.52;
+                $transportcharge = 365;
                 break;
         };
 
         $margin = $_POST['Margin'] / 100;
 
-        $fuellevy = 0.35; //change fuel levy here.
-
-        #calculate total cost by shipping from and supplier term:
-        /*change the coding of this nested switch: by different conditions, set a new variable the value of the original variable * 0 or 1,
-    eg. if the supplier term is CNF/CIF, the $seafreightactual = $seafreightdecimal * 0.
-    */
+        $fuellevy = 0.25; //change fuel levy here.
 
     $warehouseinwards = $whschargeperorder + ($whschargeperpallet * $pallets)+ $devanning;
     $totalstoragecharge = $storagecharge * $_POST['Storage'] * $pallets;
-    
+  
         switch ($_POST['Shipping_From']) {
             case "Our Warehouse":
-
-                switch ($_POST['Supplier_Term']) {
-                    case "FOB":
-                        $totalcharge = (130 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
-                            $seafreightrate + $landedcost + $warehouseinwards + $totalstoragecharge + ($transportcharge * (1 + $fuellevy));
-
-                        
-                        // echo "<tr>" . "<td>" . "Devanning: " . "<td>" . "AUD " . $devanning;
-                        echo "<tr>" . "<td>" . "Warehouse Inwards Charge: " . "<td>" . "AUD " . $warehouseinwards;
-                        // echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>" . "AUD " . $pallets;
-                        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>"  . "AUD ". $totalstoragecharge;
-                        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>" . "AUD " . $transportcharge;
-                        echo "<tr>" . "<td>" . "Fuel Levy: " . "<td>" . $fuellevy*100 . " %";
-                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "AUD 130" ;
-                        break;
-                    case "CNF/CIF":
                         $totalcharge = (130 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
                             $landedcost + $warehouseinwards + $totalstoragecharge + ($transportcharge * (1 + $fuellevy));
 
-                        echo "<tr>" . "<td>" . "Warehouse Inwards Charge: " . "<td>" . "AUD " . $whschargeperorder + ($whschargeperpallet * $pallets);
-                        // echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . "AUD ". $devanning;
-                        // echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . "AUD ". $pallets;
-                        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>" . "AUD " . $totalstoragecharge;
-                        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>" . "AUD " . $transportcharge;
+                        echo "<tr>" . "<td>" . "Warehouse Inwards Charge: " . "<td>" . "NZD " . $warehouseinwards;
+                        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>" . "NZD " . $totalstoragecharge;
+                        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>" . "NZD " . $transportcharge;
                         echo "<tr>" . "<td>" . "Fuel Levy: " . "<td>" . $fuellevy*100 . " %";
-                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "AUD 130" ;
+                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "NZD 130" ;
                         break;
-                };
-                break;
 
             case "Direct FCL":
-                switch ($_POST['Supplier_Term']) {
-                    case "FOB":
-                        $totalcharge = (100 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $seafreightrate + $landedcost;
-                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "AUD 100" ;
-                        break;
-                    case "CNF/CIF":
                         $totalcharge = (100 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) + $landedcost;
-                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "AUD 100" ;
+                        echo "<tr>" . "<td>" . "Overheads: " . "<td>" . "NZD 100" ;
                         break;
-                };
-                break;
         }
 
 
-
-
-        // echo "<tr>" . "<td>" . "Total Charge: " . "<td>"  . $totalcharge;
         echo "<tr>" . "<td>" . "<td>";
         echo "<tr>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>" . "<td style='border-bottom:2px dashed rgb(250, 232, 200)'>";
 
-        /* we buy in Euro, sell in AUD
-        we buy in AUD, sell in AUD
-        we buy in USD, sell in AUD or USD
-        we buy GBP, sell in GBP or AUD 
-
-        This is a easy way but not comprehensive to calculate the total cost related to currency:*/
-
         #calculation result starts here
-        switch ($_POST['SaleCurrency'] == $_POST['Currency']) {
-            case true:
-                $costofproduct = $totalcharge / $weightpercontainer * $_POST['FX_Rate'];
-                $marginvalue = ($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']) * $margin;
-                $saleprice = ($totalcharge / $weightpercontainer / (1 - $margin) * $_POST['FX_Rate']);
-                break;
+        $costofproduct = ($totalcharge / $weightpercontainer);
+        $marginvalue = ($totalcharge / $weightpercontainer / (1 - $margin)) * $margin;
+        $saleprice = ($totalcharge / $weightpercontainer / (1 - $margin));
 
-            case false:
-                $costofproduct = ($totalcharge / $weightpercontainer);
-                $marginvalue = ($totalcharge / $weightpercontainer / (1 - $margin)) * $margin;
-                $saleprice = ($totalcharge / $weightpercontainer / (1 - $margin));
-                break;
-        }
-        echo "<tr>" . "<td>" . "Total Product Cost/ MT: ". "<td>". $_POST['SaleCurrency'] . " " . number_format($costofproduct, 0);
-        echo "<tr>" . "<td>" . "Expected Margin/ MT: "."<td>".$_POST['SaleCurrency'] . " "  . number_format($marginvalue,0);
-        echo "<tr>" . "<td>" . "Recommended Sale Price/ MT: ". "<td>".$_POST['SaleCurrency'] . " "  . number_format($saleprice,0);
+        echo "<tr>" . "<td>" . "Total Product Cost/ MT: ". "<td>". "NZD " . " " . number_format($costofproduct, 0);
+        echo "<tr>" . "<td>" . "Expected Margin/ MT: "."<td>". "NZD " . " "  . number_format($marginvalue,0);
+        echo "<tr>" . "<td>" . "Recommended Sale Price/ MT: ". "<td>"."NZD " . " "  . number_format($saleprice,0);
         ?>
     </table>
 

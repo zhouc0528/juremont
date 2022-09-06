@@ -237,7 +237,7 @@
                         $totalcharge = (130 * $weightpercontainer) + ($_POST['Product_Price'] * $weightpercontainer * (1 + $_POST['Duty'] / 100 + $finance) / $_POST['FX_Rate']) +
                             $landedcost + $warehouseinwards + $totalstoragecharge + ($transportcharge * (1 + $fuellevy));
 
-                        echo "<tr>" . "<td>" . "Warehouse Inwards Charge: " . "<td>" . "AUD " . $whschargeperorder + ($whschargeperpallet * $pallets);
+                        echo "<tr>" . "<td>" . "Warehouse Inwards Charge: " . "<td>" . "AUD " . $warehouseinwards;
                         // echo "<tr>" . "<td>" . "Devanning: " . "<td>"  . "AUD ". $devanning;
                         // echo "<tr>" . "<td>" . "Pallets Amount: " . "<td>"  . "AUD ". $pallets;
                         echo "<tr>" . "<td>" . "Storage Charge: " . "<td>" . "AUD " . $totalstoragecharge;
