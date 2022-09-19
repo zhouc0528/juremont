@@ -21,8 +21,6 @@ require_once('functions/confignz.php');
         <h1 style="font-family: 'Courier New', Courier, monospace;">
           &nbsp;&nbsp;
           Cost Calculator (New Zealand)
-
-          NZ is not completed, please ignore.
         </h1>
       </td>
     </tr>

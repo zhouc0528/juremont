@@ -155,8 +155,8 @@
         echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "AUD ". $landedcost;
 
         /*currently duty is not considered*/
-        $whschargeperorder = 3.76 * 2; //inwards + outwards admin fee
-        $whschargeperpallet = 3.44 + 3.48 + 1.00 + 0.80 + 3.48 + 3.44;
+        $whschargeperorder = 3.97 * 2; //inwards + outwards admin fee
+        $whschargeperpallet = 3.67 + 2.61 + 1.06 + 0.84 + 3.63 + 3.43 + 3.63 + 2.61;
 
         #devanning charge by container type: 20' $340.40, 40' $473.59 
         #ambient storage = 3.25, temp controlled storage = 4.90 per pallet
@@ -167,27 +167,27 @@
 
         switch ($storagetype) {
             case "20 Ambient":
-                $devanning = 340.40;
+                $devanning = 359.12;
                 $pallets = 20;
-                $storagecharge = 3.25;
-                $transportcharge = 460.00;
+                $storagecharge = 3.43;
+                $transportcharge = 485.20;
                 break;
             case "20 Chilled":
-                $devanning = 340.40;
+                $devanning = 359.12;
                 $pallets = 20;
-                $storagecharge = 4.90;
+                $storagecharge = 5.17;
                 $transportcharge = 650.00;
                 break;
             case "40 Ambient":
-                $devanning = 473.59;
+                $devanning = 499.64;
                 $pallets = 40;
-                $storagecharge = 3.25;
-                $transportcharge = 720.00;
+                $storagecharge = 3.43;
+                $transportcharge = 759.60;
                 break;
             case "40 Chilled":
-                $devanning = 473.59;
+                $devanning = 499.64;;
                 $pallets = 40;
-                $storagecharge = 4.90;
+                $storagecharge = 5.17;
                 $transportcharge = 900.00;
                 break;
             case "20 Frozen":
