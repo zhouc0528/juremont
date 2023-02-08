@@ -73,15 +73,15 @@
         //change finance percentage here:
         switch (true) {
             case $_POST['Storage'] <= 4:
-                $finance = 0.015;
+                $finance = 0.022;
                 break;
 
             case $_POST['Storage'] <= 8:
-                $finance = 0.02;
+                $finance = 0.0285;
                 break;
 
             default:
-                $finance = 0.025;
+                $finance = 0.035;
                 break;
         }
 
@@ -303,7 +303,7 @@
     <table>
         <tr>
             <td>
-                &copy; Copyright
+                &copy; Copyright 2022 -
                 <script>
                     document.write(new Date().getFullYear())
                 </script>: Juremont Pty Ltd<br>

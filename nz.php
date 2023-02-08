@@ -131,7 +131,7 @@ require_once('functions/confignz.php');
   <table>
     <tr>
       <td>
-        &copy; Copyright
+        &copy; Copyright 2022 -
         <script>
           document.write(new Date().getFullYear())
         </script>: Juremont Pty Ltd<br>
