@@ -206,7 +206,7 @@
 
         $margin = $_POST['Margin'] / 100;
 
-        $fuellevy = 0.35; //change fuel levy here.
+        $fuellevy = 0.20; //change fuel levy here.
 
         #calculate total cost by shipping from and supplier term:
         /*change the coding of this nested switch: by different conditions, set a new variable the value of the original variable * 0 or 1,
