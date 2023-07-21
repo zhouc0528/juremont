@@ -73,11 +73,11 @@
         //change finance percentage here:
         switch (true) {
             case $_POST['Storage'] <= 4:
-                $finance = 0.022;
+                $finance = 0.025;
                 break;
 
             case $_POST['Storage'] <= 8:
-                $finance = 0.0285;
+                $finance = 0.03;
                 break;
 
             default:
@@ -138,10 +138,10 @@
 
         switch ($dport) {
             case "Others";
-                $seafreightrate = $_POST['spotrate'] / 0.7;
+                $seafreightrate = $_POST['spotrate'] / 0.67;
                 break;
             default:
-                $seafreightrate = $seafreight_row["Rate"] / 0.7;
+                $seafreightrate = $seafreight_row["Rate"] / 0.67;
         };
 
         echo "<tr>" . "<td>" . "Sea Freight: " . "<td>" . "AUD ". number_format($seafreightrate,2);
