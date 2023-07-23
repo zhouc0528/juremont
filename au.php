@@ -9,8 +9,11 @@ require_once('functions/config.php');
   <link rel="icon" href="/picture/icon.png">
   <title>Cost of Product Calculation - AU</title>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="/javascript/productcascading.js"></script>
   <script type="text/javascript" src="/javascript/displaycontrol.js"></script>
+  <script type="text/javascript" src="/javascript/fetchmargin.js"></script>
+  
   <link rel="stylesheet" href="/css/au.css">
   <table>
     <tr>
@@ -43,7 +46,7 @@ require_once('functions/config.php');
     </select> <br><br>
 
     <label>Item Group:</label>
-    <select id="itemgroup" name="Item_Group">
+    <select id="itemgroup" name="Item_Group" onchange="fetchMargin()">
       <option value="">--- Select Item Group ---</option>
       <?php
       $sql = "SELECT * FROM ItemGroup order by ItmsGrpNam";
@@ -187,7 +190,7 @@ require_once('functions/config.php');
 
     <br>
     <label>Margin:</label>
-    <input type="number" min="0" step="0.1" name="Margin">&nbsp%<br><br><br>
+    <input type="number" min="0" step="0.1" name="Margin" id="marginInput">&nbsp%<br><br><br>
 
     <input type="submit" value="Calculate" id="calculate">
   </form>
