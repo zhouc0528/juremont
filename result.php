@@ -297,6 +297,21 @@
     </table>
 
     <button onClick="window.print()">Print</button>
+    <p></p>
+
+    <button onclick="window.history.back()">Back</button>
+
+    <form action="/contract.php" method="post">
+        <input type="hidden" name="Product" value="<?php echo $_POST['Product']; ?>">
+        <input type="hidden" name="Product_Price" value="<?php echo $_POST['Product_Price']; ?>">
+        <input type="hidden" name="Currency" value="<?php echo $_POST['Currency']; ?>">
+        <input type="hidden" name="Quantity" value="<?php echo $_POST['Quantity']; ?>">
+        <input type="hidden" name="Container_Size" value="<?php echo $_POST['Container_Size']; ?>">
+        <input type="hidden" name="Handling_Type" value="<?php echo $_POST['Handling_Type']; ?>">
+        <input type="hidden" name="Supplier_Term" value="<?php echo $_POST['Supplier_Term']; ?>">
+        <input type="hidden" name="SaleCurrency" value="<?php echo $_POST['SaleCurrency']; ?>">
+        <input type="submit" value="Ignore This Button" id="next">
+    </form>
 </body>
 
 <footer style="margin-top: 40px;">
