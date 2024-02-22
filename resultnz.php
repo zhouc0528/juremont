@@ -96,7 +96,16 @@
         echo "<tr>" . "<td>" . "Related Cost Summary:";
         echo "<tr>" . "<td>";
 
-        $landedcost = 1500; //change landed cost here.
+        switch ($_POST['Supplier']) {
+            case 'Juremont Pty Ltd-NZD':
+                $landedcost = 7500 + (600*(1+0.25)+6.430+382.210+3.910*22+5.500*1+4.230+3.910*22)*1.07;//check storage weeks in AU, current set as 1, also if the item cost = inventory cost
+                break;
+            default:
+                $landedcost = 1500;
+                break;
+        }
+        
+        //$landedcost = 1500; change landed cost here.
         echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "NZD ". $landedcost;
 
         $whschargeperorder = 8.15+5.31; //inwards + outwards admin fee
