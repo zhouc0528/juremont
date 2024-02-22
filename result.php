@@ -299,10 +299,12 @@
     <button onClick="window.print()">Print</button>
     <p></p>
 
-    <button onclick="window.history.back()">Back</button>
+    <!-- <button onclick="window.history.back()">Back</button> -->
 
     <form action="/contract.php" method="post">
-        <input type="hidden" name="Product" value="<?php echo $_POST['Product']; ?>">
+        <!-- <input type="hidden" name="Product" value="<?php echo $_POST['Product']; ?>"> -->
+        <input type="hidden" name="Product_Name" value="<?php echo $product_row['ItemDescription']; ?>">
+        <input type="hidden" name="Product_Code" value="<?php echo $product_row['ItemNo']; ?>">
         <input type="hidden" name="Product_Price" value="<?php echo $_POST['Product_Price']; ?>">
         <input type="hidden" name="Currency" value="<?php echo $_POST['Currency']; ?>">
         <input type="hidden" name="Quantity" value="<?php echo $_POST['Quantity']; ?>">
