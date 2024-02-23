@@ -98,10 +98,10 @@
 
         switch ($_POST['Supplier']) {
             case 'Juremont Pty Ltd-NZD':
-                $landedcost = 7500 + (600*(1+0.25)+6.430+382.210+3.910*22+5.500*1+4.230+3.910*22)*1.07;//check storage weeks in AU, current set as 1, also if the item cost = inventory cost
+                $landedcost = 7500 + (600*(1+0.25)+6.430+382.210+3.910*22+5.500*3+4.230+3.910*22)*1.07;//average store 2-3 weeks in AU, item cost = current inventory cost
                 break;
             default:
-                $landedcost = 1500;
+                $landedcost = 1600;
                 break;
         }
         

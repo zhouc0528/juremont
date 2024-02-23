@@ -151,7 +151,14 @@
     echo "seafreight: ".$seafreightdecimal;
     echo "<tr>"."<td>"; */
 
-        $landedcost = 2500; //change landed cost here.
+    switch ($_POST['Supplier']) {
+        case 'Barry Callebaut Australia Pty Ltd':
+            $landedcost = 600*(1+0.25); //local freight cost
+            break;
+        default:
+            $landedcost = 2500;
+            break;
+    } //change landed cost here.
         echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "AUD ". $landedcost;
 
         /*currently duty is not considered*/
