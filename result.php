@@ -151,8 +151,8 @@
     echo "seafreight: ".$seafreightdecimal;
     echo "<tr>"."<td>"; */
 
-    switch ($_POST['Supplier']) {
-        case 'Barry Callebaut Australia Pty Ltd':
+    switch ($supplier_row["BPName"]) {
+        case "Barry Callebaut Australia Pty Ltd":
             $landedcost = 600*(1+0.25); //local freight cost
             break;
         default:
