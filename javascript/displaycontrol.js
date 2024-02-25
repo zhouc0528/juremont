@@ -32,3 +32,22 @@ $(document).ready(function(){
             
         });
  });
+
+
+$(document).ready(function(){
+    $('#supplier').change(
+        function () {
+        var supplier = $('option:selected', this).text(); 
+        if (supplier == "Barry Callebaut Australia Pty Ltd") {
+            $('#dutycontrol').css("display","none");
+            $('#suppliertermcontrol').css("display","none");
+            $('#seafreightcontrol').css("display","none");
+        } else {
+            $('#dutycontrol').css("display","block");
+            $('#suppliertermcontrol').css("display","block");
+            $('#seafreightcontrol').css("display","block");
+        }
+    });
+});
+
+

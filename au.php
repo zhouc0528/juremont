@@ -93,18 +93,20 @@ require_once('functions/config.php');
     <input type="radio" name="Container_Size" value="40">40 ft
     <br><br>
 
+    <label>Product Handling Type: </label>
+    <input type="radio" name="Handling_Type" value="Ambient">Ambient &nbsp&nbsp&nbsp
+    <input type="radio" name="Handling_Type" value="Chilled">Chilled &nbsp&nbsp&nbsp
+    <input type="radio" name="Handling_Type" value="Frozen">Frozen
+    <br><br>
+
+    <div id="dutycontrol">
     <label>Duty:</label>
     <select id="duty" name="Duty">
       <option value="0">0%</option>
       <option value="4">4%</option>
       <option value="5">5%</option>
     </select><br><br>
-
-    <label>Product Handling Type: </label>
-    <input type="radio" name="Handling_Type" value="Ambient">Ambient &nbsp&nbsp&nbsp
-    <input type="radio" name="Handling_Type" value="Chilled">Chilled &nbsp&nbsp&nbsp
-    <input type="radio" name="Handling_Type" value="Frozen">Frozen
-    <br><br>
+    </div>
 
 <!--     <label>Product Handling Type:</label>
     <select id="handlingtype" name="Handling_Type">
@@ -115,12 +117,13 @@ require_once('functions/config.php');
 
     <!-- Estimated Pallets Amount:<br> 
     <input type="number" name="Pallets" value = 20> (Pallets)<br><br> -->
-
+    <div id="suppliertermcontrol">
     <label>Supplier Term:</label>
     <select id="supplierterm" name="Supplier_Term">
       <option value="FOB">FOB</option>
       <option value="CNF/CIF">CNF/CIF</option>
     </select><br><br>
+    </div>
 
     <!-- Hide departure port when supplier term is CNF/CIF -->
     <div id="seafreightcontrol">
