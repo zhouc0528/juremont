@@ -174,46 +174,46 @@
 
         switch ($storagetype) {
             case "20 Ambient":
-                $devanning = 359.12;
+                $devanning = 382.210;
                 $pallets = 20;
-                $storagecharge = 3.43;
-                $transportcharge = 485.20;
+                $storagecharge = 3.650;
+                $transportcharge = 800;
                 break;
             case "20 Chilled":
-                $devanning = 359.12;
+                $devanning = 382.210;
                 $pallets = 20;
-                $storagecharge = 5.17;
-                $transportcharge = 650.00;
+                $storagecharge = 5.500;
+                $transportcharge = 1100;
                 break;
             case "40 Ambient":
-                $devanning = 499.64;
+                $devanning = 531.770;
                 $pallets = 40;
-                $storagecharge = 3.43;
-                $transportcharge = 759.60;
+                $storagecharge = 3.650;
+                $transportcharge = 1600;
                 break;
             case "40 Chilled":
-                $devanning = 499.64;;
+                $devanning = 531.770;;
                 $pallets = 40;
-                $storagecharge = 5.17;
-                $transportcharge = 900.00;
+                $storagecharge = 5.500;
+                $transportcharge = 2200;
                 break;
             case "20 Frozen":
                 $devanning = 450.00;
                 $pallets = 20;
-                $storagecharge = 5.00;
-                $transportcharge = 600;
+                $storagecharge = 6.50;
+                $transportcharge = 1300;
                 break;
             case "40 Frozen":
                 $devanning = 700.00;
                 $pallets = 40;
-                $storagecharge = 5.00;
-                $transportcharge = 1200;
+                $storagecharge = 6.50;
+                $transportcharge = 2600;
                 break;
         };
 
         $margin = $_POST['Margin'] / 100;
 
-        $fuellevy = 0.20; //change fuel levy here.
+        $fuellevy = 0.25; //change fuel levy here.
 
         #calculate total cost by shipping from and supplier term:
         /*change the coding of this nested switch: by different conditions, set a new variable the value of the original variable * 0 or 1,
