@@ -198,13 +198,13 @@
                 $transportcharge = 2200;
                 break;
             case "20 Frozen":
-                $devanning = 450.00;
+                $devanning = 530;
                 $pallets = 20;
                 $storagecharge = 6.50;
                 $transportcharge = 1300;
                 break;
             case "40 Frozen":
-                $devanning = 700.00;
+                $devanning = 760;
                 $pallets = 40;
                 $storagecharge = 6.50;
                 $transportcharge = 2600;
