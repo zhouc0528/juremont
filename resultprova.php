@@ -23,26 +23,29 @@
     <table>
         <?php
 
-        echo "<tr>" . "<td>" . "Product Name: " . "<td>" . $_POST['product'] ;
+        echo "<tr>" . "<td>" . "Product Name: " . "<td>" . $_POST['product'];
 
-        echo "<tr>" . "<td>" . "Unit Price per KG: " . "<td>" . $_POST['unitprice']. " /KG";
+        echo "<tr>" . "<td>" . "Unit Price per KG: " . "<td>" . number_format($_POST['unitprice'],2). " /KG";
 
         echo "<tr>" . "<td>" . "Shipment Quantity: " . "<td>" . $_POST['shipmentquantity']." KG";
 
-        echo "<tr>" . "<td>" . "Freight Type: " . "<td>" . $_POST['freighttype']; 
-
         switch ($_POST['freighttype']) {
+            case "FCL":
+                $clearance = 2700;
+                break;
             case "LCL":
-                $clearance = 500;
-                $transport = 200;
+                $clearance = 800;
                 break;
             case "airfreight":
-                $clearance = 430;
-                $transport = 110;
+                $clearance = 540;
                 break;            
         };
 
-        $freightcost = $_POST['freightcost'];
+        echo "<tr>" . "<td>" . "Clearance: " . "<td>" . number_format($clearance,2);
+
+        $freightcost = $_POST['freighttype'] === 'airfreight' ? $_POST['freightcost'] : 0;
+
+        echo "<tr>" . "<td>" . "Freight Cost: " . "<td>" . number_format($freightcost,2);
 
         echo "<tr>" . "<td>" . "Exchange Rate: " . "<td>" . $_POST['fxrate']; 
         $fxrate = $_POST['fxrate'];
@@ -50,26 +53,60 @@
         echo "<tr>" . "<td>" . "Duty: " . "<td>" . $_POST['duty'] . " %";
         $duty = $_POST['duty'] / 100;
 
-        $finance = $_POST['finance'] / 100;
+        $additionalCost = $_POST['customertype'] === 'new' ? 0.07 * $_POST['unitprice'] * $_POST['shipmentquantity']/$fxrate : 0;
+
+        echo "<tr>" . "<td>" . "New Business Additional Cost: " . "<td>" . number_format($additionalCost,2);
+
+        switch ($_POST['shipto']) {
+            case 'warehouse':
+                switch ($_POST['freighttype']) {
+                    case 'FCL':
+                        $warehousehandling = 400 + 7.94 + 430; // including devanning, admin fee, inwards + outwards
+                        $transportcharge = 1700; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
+                        break;
+                    case 'LCL': // assume 1 pallets in average
+                        $warehousehandling = 20 + 7.94 + 21; 
+                        $transportcharge = 85; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
+                        break;
+                    default:
+                        $warehousehandling = 0;
+                        $transportcharge = 0;
+                }
+                $storagecharge = 7 * $_POST['storageweeks'];
+                $finance = 0.01 + (0.002 * $_POST['storageweeks']);
+                break;
+            default:
+                $warehousehandling = 0;
+                $transportcharge = 0;
+                $storagecharge = 0;
+                $finance = 0.01;
+                //$transport = ($_POST['customerlocation'] === 'metro') ? 600 : 800;
+        }
+
+        echo "<tr>" . "<td>" . "Warehouse Handling: " . "<td>" . number_format($warehousehandling,2);
+        echo "<tr>" . "<td>" . "Transport Charge: " . "<td>" . number_format($transportcharge,2);
+        echo "<tr>" . "<td>" . "Storage Charge: " . "<td>" . number_format($storagecharge,2);
+
+        $margin = $_POST['margin'] / 100;
+        $costofproduct = ($_POST['unitprice'] * $_POST['shipmentquantity'] + $freightcost)/$fxrate;
+        $totalcost = $costofproduct * (1+$duty+$finance) + $clearance + $transportcharge + $additionalCost + $wharftowarehouse + $warehousehandling + $storagecharge;
+        echo "<tr>" . "<td>" . "Finance: " . "<td>" . number_format($costofproduct * $finance,2);
+             
 
         echo "<tr>" . "<td>" . "Margin: " . "<td>" . $_POST['margin'] . " %";
-        $margin = $_POST['margin'] / 100;
 
         echo "<tr>" . "<td>" . "<td>";
         echo "<tr>" . "<td style='border-bottom:2px dashed rgb(0, 0, 0)'>" . "<td style='border-bottom:2px dashed rgb(0, 0, 0)'>"; 
         echo "<tr>" . "<td>" . "<td>";
 
-        $purchasecost = ($_POST['unitprice'] * $_POST['shipmentquantity'] + $_POST['freightcost'])/$fxrate;
-
-        $totalcost = $purchasecost * (1+$duty+$finance) + $clearance + $transport;
-        $profit = $totalcost/ (1-$margin) * $margin;
-        $salepriceaud = ($totalcost + $profit)/ $_POST['shipmentquantity'];
+        $profit = $totalcost / (1 - $margin) * $margin;
+        $salepriceaud = ($totalcost + $profit) / $_POST['shipmentquantity'];
         $salepriceeuro = $salepriceaud * $fxrate;
 
         echo "<tr>" . "<td>" . "Cost Total: ". "<td>". "AUD " . number_format($totalcost, 0);
         echo "<tr><td><strong>Juremont GP:</strong><td><strong>AUD "  . number_format($profit,0) . "</strong></td></tr>";
-        echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."AUD "  . number_format($salepriceaud,0);
-        echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."EURO "  . number_format($salepriceeuro,0);
+        echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."AUD "  . number_format($salepriceaud,2);
+        echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."EURO "  . number_format($salepriceeuro,2);
         ?>
     </table>
 

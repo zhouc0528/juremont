@@ -5,6 +5,7 @@
   <link rel="icon" href="/picture/icon.png">
   <title>Cost of Product Calculation - Prova</title>
   <link rel="stylesheet" href="/css/prova.css">
+  <script src="/javascript/prova.js"></script>
   <table>
     <tr>
       <td>
@@ -23,7 +24,7 @@
 <body>
   <form action="resultprova.php" method="post">
 
-  <label>Product Name:</label>
+    <label>Product Name:</label>
     <input type="text" name="product"><br><br>
 
     <label>Unit Price (EURO):</label>
@@ -33,40 +34,51 @@
     <input type="number" name="shipmentquantity"> KG<br><br>
 
     <label>Freight Type: </label>
-    <input type="radio" name="freighttype" value="LCL">LCL Sea Freight &nbsp&nbsp&nbsp
-    <input type="radio" name="freighttype" value="airfreight">Parcel Air Freight
+    <input type="radio" name="freighttype" value="FCL" onchange="toggleFreightCost()">FCL Sea Freight CIF &nbsp&nbsp&nbsp
+    <input type="radio" name="freighttype" value="LCL" onchange="toggleFreightCost()">LCL Sea Freight CIF &nbsp&nbsp&nbsp
+    <input type="radio" name="freighttype" value="airfreight" onchange="toggleFreightCost()">Parcel Air Freight
     <br><br>
 
-    <label>Freight Cost (EURO):</label>
-    <input type="number" name="freightcost"><br><br>
+    <div id="freightCostSection">
+      <label>Freight Cost (EURO):</label>
+      <input type="number" name="freightcost" value="0"><br><br>
+    </div>
 
     <label>Exchange Rate:</label>
-      <input type="number" min="0.00" step="0.01" max="1.0" name="fxrate"><br><br>
+    <input type="number" min="0.00" step="0.01" max="1.0" name="fxrate"><br><br>
 
     <label>Duty:</label>
     <select name="duty">
-      <option value=0>0</option>
-      <option value=5.0>5.0</option>
-    </select>&nbsp%<br><br>
+      <option value=0>0% (Thailand Origin)</option>
+      <option value=5.0>5.0% (France Origin)</option>
+    </select><br><br>
 
-    <label>Finance Costs:</label>
+    <label>Customer Type:</label>
+      <input type="radio" name="customertype" value="transfer" onchange="toggleNewBusiness()"> Transfer Business &nbsp&nbsp&nbsp
+      <input type="radio" name="customertype" value="new" onchange="toggleNewBusiness()"> New Business<br><br>
+
+    <label>Ship To:</label>
+      <input type="radio" name="shipto" value="warehouse" onchange="toggleStorageWeeks()"> Warehouse &nbsp&nbsp&nbsp
+      <input type="radio" name="shipto" value="customer" onchange="toggleStorageWeeks()"> Customer<br><br>
+
+<!--<div id="customerLocationSection" style="display:none;">
+      <label>Customer Location:</label>
+      <input type="radio" name="customerlocation" value="metro"> Metro
+      <input type="radio" name="customerlocation" value="rural"> Rural<br><br>
+    </div> -->
+
+    <div id="storageWeeksSection" style="display:none;">
+      <label>Storage Weeks:</label>
+      <input type="number" name="storageweeks" value="0"><br><br>
+    </div>
+
+<!--<label>Finance Costs:</label>
     <select name="finance">
-      <option value=1.5>1.5</option>
+      <option value=1.15>1.15</option>
       <option value=2.0>2.0</option>
       <option value=2.5>2.5</option>
       <option value=3.0>3.0</option>
-    </select>&nbsp%<br><br>
-
-    <!--
-    <label>Wharf to Warehouse:</label>
-    <input type="number" name="wharftowarehouse"><br><br>
-
-    <label>Warehouse Handling:</label>
-    <input type="number" name="warehousehandling"><br><br>
-
-    <label>Storage:</label>
-    <input type="number" name="storage"><br><br>
-    -->
+    </select>&nbsp%<br><br> -->
 
     <label>Target Margin Percentage:</label>
     <input type="number" min="0" step="0.1" name="margin">&nbsp%<br><br>
@@ -80,7 +92,7 @@
   <table>
     <tr>
       <td>
-        &copy; Copyright 2022 - 
+        &copy; Copyright 2022 -
         <script>
           document.write(new Date().getFullYear())
         </script>: Juremont Pty Ltd<br>
