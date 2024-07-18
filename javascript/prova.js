@@ -9,6 +9,16 @@
       freightCostSection.style.display = 'none';
     }
   }
+
+  function togglePallets() {
+    const freightType = document.querySelector('input[name="freighttype"]:checked').value;
+    const palletsSection = document.getElementById('palletquantity');
+    if (freightType === 'LCL') {
+      palletsSection.style.display = 'block';
+    } else {
+      palletsSection.style.display = 'none';
+    }
+  }
   
   function toggleNewBusiness() {
     const customerType = document.querySelector('input[name="customertype"]:checked').value;
@@ -32,5 +42,6 @@
   document.addEventListener('DOMContentLoaded', function() {
     toggleFreightCost();
     toggleStorageWeeks();
+    togglePallets();
   });
   

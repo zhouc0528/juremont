@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <table>
+    <table class="bordered-table">
         <?php
 
         echo "<tr>" . "<td>" . "Product Name: " . "<td>" . $_POST['product'];
@@ -31,21 +31,21 @@
 
         switch ($_POST['freighttype']) {
             case "FCL":
-                $clearance = 2700;
+                $clearance = 2900;
                 break;
             case "LCL":
-                $clearance = 800;
+                $clearance = 1000;
                 break;
             case "airfreight":
-                $clearance = 540;
+                $clearance = 740;
                 break;            
         };
 
-        echo "<tr>" . "<td>" . "Clearance: " . "<td>" . number_format($clearance,2);
+        echo "<tr>" . "<td>" . "Clearance/Direct Delivery: " . "<td>" . number_format($clearance,2);
 
         $freightcost = $_POST['freighttype'] === 'airfreight' ? $_POST['freightcost'] : 0;
 
-        echo "<tr>" . "<td>" . "Freight Cost: " . "<td>" . number_format($freightcost,2);
+        echo "<tr>" . "<td>" . "Additional Air Freight: " . "<td>" . number_format($freightcost,2);
 
         echo "<tr>" . "<td>" . "Exchange Rate: " . "<td>" . $_POST['fxrate']; 
         $fxrate = $_POST['fxrate'];
@@ -63,16 +63,17 @@
                     case 'FCL':
                         $warehousehandling = 400 + 7.94 + 430; // including devanning, admin fee, inwards + outwards
                         $transportcharge = 1700; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
+                        $storagecharge = 7 * $_POST['storageweeks']*22;
                         break;
-                    case 'LCL': // assume 1 pallets in average
-                        $warehousehandling = 20 + 7.94 + 21; 
-                        $transportcharge = 85; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
+                    case 'LCL': 
+                        $warehousehandling = 7.94 + (20 + 21) * $_POST['pallets']; 
+                        $transportcharge = 85 * $_POST['pallets']; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
+                        $storagecharge = 7 * $_POST['storageweeks'] * $_POST['pallets'];
                         break;
                     default:
                         $warehousehandling = 0;
                         $transportcharge = 0;
                 }
-                $storagecharge = 7 * $_POST['storageweeks'];
                 $finance = 0.01 + (0.002 * $_POST['storageweeks']);
                 break;
             default:
@@ -95,9 +96,7 @@
 
         echo "<tr>" . "<td>" . "Margin: " . "<td>" . $_POST['margin'] . " %";
 
-        echo "<tr>" . "<td>" . "<td>";
-        echo "<tr>" . "<td style='border-bottom:2px dashed rgb(0, 0, 0)'>" . "<td style='border-bottom:2px dashed rgb(0, 0, 0)'>"; 
-        echo "<tr>" . "<td>" . "<td>";
+        echo "<tr class='dashed-line'><td colspan='2'></td></tr>";
 
         $profit = $totalcost / (1 - $margin) * $margin;
         $salepriceaud = ($totalcost + $profit) / $_POST['shipmentquantity'];

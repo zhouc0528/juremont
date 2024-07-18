@@ -1,6 +1,20 @@
 body {
-    background-color: rgb(255, 230, 0);
+    background-color: rgb(243, 182, 102);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color:rgb(0, 0, 0);
     margin-left: 100px;
+}
+
+.bordered-table td {
+    border: 1px solid black;
+    padding: 5px;   
+}
+
+.dashed-line td {
+    border: none;
+    border-top: 2px dashed rgb(0, 0, 0);
+    border-bottom: 2px dashed rgb(0, 0, 0); 
+    height: 40px;
+    display: table-cell; 
+    vertical-align: middle; 
 }

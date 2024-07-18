@@ -34,14 +34,19 @@
     <input type="number" name="shipmentquantity"> KG<br><br>
 
     <label>Freight Type: </label>
-    <input type="radio" name="freighttype" value="FCL" onchange="toggleFreightCost()">FCL Sea Freight CIF &nbsp&nbsp&nbsp
-    <input type="radio" name="freighttype" value="LCL" onchange="toggleFreightCost()">LCL Sea Freight CIF &nbsp&nbsp&nbsp
-    <input type="radio" name="freighttype" value="airfreight" onchange="toggleFreightCost()">Parcel Air Freight
+    <input type="radio" name="freighttype" value="FCL" onchange="toggleFreightCost(); togglePallets()">FCL Sea Freight CIF &nbsp&nbsp&nbsp
+    <input type="radio" name="freighttype" value="LCL" onchange="toggleFreightCost(); togglePallets()">LCL Sea Freight CIF &nbsp&nbsp&nbsp
+    <input type="radio" name="freighttype" value="airfreight" onchange="toggleFreightCost(); togglePallets()">Parcel Air Freight
     <br><br>
 
     <div id="freightCostSection">
-      <label>Freight Cost (EURO):</label>
+      <label>Additional Air Freight (EURO):</label>
       <input type="number" name="freightcost" value="0"><br><br>
+    </div>
+
+    <div id="palletquantity" style="display:none;">
+      <label>Number of Pallets per Shipment:</label>
+      <input type="number" name="pallets" value="0"><br><br>
     </div>
 
     <label>Exchange Rate:</label>
