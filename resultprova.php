@@ -61,9 +61,9 @@
             case 'warehouse':
                 switch ($_POST['freighttype']) {
                     case 'FCL':
-                        $warehousehandling = 400 + 7.94 + 430; // including devanning, admin fee, inwards + outwards
+                        $warehousehandling = 400 + 7.94 + 420; // including devanning, admin fee, inwards + outwards
                         $transportcharge = 1700; // using $85 per pallet rate to calculate transport, including fuel levy, no matter rural area or inter-state
-                        $storagecharge = 7 * $_POST['storageweeks']*22;
+                        $storagecharge = 7 * $_POST['storageweeks']*20;
                         break;
                     case 'LCL': 
                         $warehousehandling = 7.94 + (20 + 21) * $_POST['pallets']; 
@@ -73,6 +73,7 @@
                     default:
                         $warehousehandling = 0;
                         $transportcharge = 0;
+                        $storagecharge = 10 * $_POST['shipmentquantity'];
                 }
                 $finance = 0.01 + (0.002 * $_POST['storageweeks']);
                 break;
@@ -91,6 +92,7 @@
         $margin = $_POST['margin'] / 100;
         $costofproduct = ($_POST['unitprice'] * $_POST['shipmentquantity'] + $freightcost)/$fxrate;
         $totalcost = $costofproduct * (1+$duty+$finance) + $clearance + $transportcharge + $additionalCost + $wharftowarehouse + $warehousehandling + $storagecharge;
+        $costperkg = $totalcost/$_POST['shipmentquantity'];
         echo "<tr>" . "<td>" . "Finance: " . "<td>" . number_format($costofproduct * $finance,2);
              
 
@@ -99,11 +101,14 @@
         echo "<tr class='dashed-line'><td colspan='2'></td></tr>";
 
         $profit = $totalcost / (1 - $margin) * $margin;
+        $profitperkg = $profit/ $_POST['shipmentquantity'];
         $salepriceaud = ($totalcost + $profit) / $_POST['shipmentquantity'];
         $salepriceeuro = $salepriceaud * $fxrate;
 
         echo "<tr>" . "<td>" . "Cost Total: ". "<td>". "AUD " . number_format($totalcost, 0);
+        echo "<tr>" . "<td>" . "Cost per KG: ". "<td>". "AUD " . number_format($costperkg, 2). " /KG";
         echo "<tr><td><strong>Juremont GP:</strong><td><strong>AUD "  . number_format($profit,0) . "</strong></td></tr>";
+        echo "<tr>" . "<td>" . "Profit per KG: ". "<td>". "AUD " . number_format($profitperkg, 2). " /KG";
         echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."AUD "  . number_format($salepriceaud,2);
         echo "<tr>" . "<td>" . "Sell Price/ KG: ". "<td>"."EURO "  . number_format($salepriceeuro,2);
         ?>
