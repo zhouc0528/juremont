@@ -34,10 +34,10 @@
                 $clearance = 2900;
                 break;
             case "LCL":
-                $clearance = 1000;
+                $clearance = 1500;
                 break;
             case "airfreight":
-                $clearance = 740;
+                $clearance = 1100;
                 break;            
         };
 

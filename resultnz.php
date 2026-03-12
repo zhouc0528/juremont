@@ -142,7 +142,7 @@
 
         $margin = $_POST['Margin'] / 100;
 
-        $fuellevy = 0.25; //change fuel levy here.
+        $fuellevy = 0.33; //change fuel levy here.
 
     $warehouseinwards = $whschargeperorder + ($whschargeperpallet * $pallets)+ $devanning;
     $totalstoragecharge = $storagecharge * $_POST['Storage'] * $pallets;

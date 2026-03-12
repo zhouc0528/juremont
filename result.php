@@ -156,7 +156,7 @@
             $landedcost = 600*(1+0.25); //local freight cost
             break;
         default:
-            $landedcost = 2500;
+            $landedcost = 2800;
             break;
     } //change landed cost here.
         echo "<tr>" . "<td>" . "Landed Cost: " . "<td>" . "AUD ". $landedcost;
@@ -213,7 +213,7 @@
 
         $margin = $_POST['Margin'] / 100;
 
-        $fuellevy = 0.25; //change fuel levy here.
+        $fuellevy = 0.33; //change fuel levy here.
 
         #calculate total cost by shipping from and supplier term:
         /*change the coding of this nested switch: by different conditions, set a new variable the value of the original variable * 0 or 1,
